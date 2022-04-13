@@ -31,11 +31,11 @@ constexpr auto zoomScrollCurve = make_curve(1400, 0.8); // note that scroll spee
 // in the order they're defined. Check `config_types.hpp` for details.
 constexpr auto stickModes = declare_mode_map(
   std::array { // stick 0
-    StickMode { MovementMode::REWIND, panCurve, {false, true, false} },
-    StickMode { MovementMode::STUTTER, panCurve, {false, true, false}, .motionThreshold = 25 }
+    StickMode { MovementMode::REWIND, panCurve, {false, true, false}, .vertDir = 1 },
+    StickMode { MovementMode::STUTTER, panCurve, {false, true, false}, .vertDir = 1, .motionThreshold = 25 }
   },
   std::array { // stick 1
-    StickMode { MovementMode::SCROLL, zoomScrollCurve, .horDir = 0},
+    StickMode { MovementMode::SCROLL, zoomScrollCurve, .horDir = 0, .vertDir = 1 },
     StickMode { MovementMode::REWIND, orbitCurve, {false, true, false}, KEY_LEFT_SHIFT }
   }
 );
@@ -56,10 +56,10 @@ constexpr bool hasSpinner = false; // have you got the adafruit ANO rotary encod
 // calibration: low value, center, high value.
 // note that this is intentionally not `constexpr` to permit live calibration.
 int16_t axisExtents[][3] = {
-  {10, 520, 1015},
-  {10, 498, 1015},
-  {10, 530, 1015},
-  {10, 513, 1015}
+  {1, 517, 1023},
+  {1, 496, 1023},
+  {1, 498, 1023},
+  {11, 550, 1023}
 };
 
 // stuff below here requires different hardware than OrbitRat is designed for. It's useful
@@ -72,7 +72,7 @@ constexpr int n_axes = 4; // number of axes we're going to sample. Every pair of
 
 // Which pin goes to which axis? These are Teensy ANALOG pin numbers.
 constexpr uint8_t axisPins[] = {
-  1, 0, 8, 7
+  6, 5, 3, 2
 };
 
 constexpr int n_buttons = hasSpinner ? 7 : 2; // number of buttons
@@ -84,7 +84,7 @@ constexpr int n_buttons = hasSpinner ? 7 : 2; // number of buttons
 // the compiler seems to know that the unused values aren't referenced and
 // doesn't keep them in the table if you have the spinner disabled.
 constexpr uint8_t buttonPins[] = { 
-  16, 23, 0, 0, 0, 0, 0 
+  23, 22, 0, 0, 0, 0, 0
 };
 
 /**
