@@ -18,8 +18,8 @@ constexpr bool output_diag = false;
 
 // teensy LED as status
 constexpr uint8_t ledPin = 13;
-constexpr bool flash_on_ready = false;
-constexpr bool flash_on_mode_switch = false;
+constexpr bool flash_on_ready = true;
+constexpr bool flash_on_mode_switch = true;
 
 // stick -> motion curves you'll reference in your StickModes. Tweak these and make more if you want.
 constexpr auto panCurve = make_curve(25); // maximum movement speed, linear curve
